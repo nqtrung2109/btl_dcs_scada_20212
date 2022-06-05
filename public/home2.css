@@ -1,0 +1,382 @@
+
+:root{
+         --bg1 :#9b59b6;
+         --bg2 :#3498db;
+         --text :#26ade4;
+     } 
+     *{
+         margin: 0;
+         padding: 0;
+         outline: none;
+     }
+     a{
+         text-decoration: none;
+     }
+.Background{
+    display: grid;
+    grid-template-columns: 20% 80% ;
+    grid-template-areas: 
+      "h h"
+      "hm hm"
+      "o o"
+      "p pt";
+    grid-gap: 0.3rem;  
+}
+.Header{
+    height: 70px;   
+    background: #4a4e69;
+    grid-area: h;
+}
+.Header-1{
+    color: white; 
+    text-align: left;  
+    font-size: 1.5rem; 
+}
+.Header-2{
+    color: white; 
+    background-color: gray;
+    text-align: left;  
+    font-size: 1.2rem; 
+}
+.Header-3{
+    color: white; 
+    text-align: left;  
+    font-size: 1.1rem; 
+}
+.Header-4{
+    color: red; 
+    text-align: left;  
+    font-size: 1.1rem; 
+}
+.Header-5{
+    color: black; 
+    text-align: left;  
+    font-size: 1.1rem; 
+}
+.Header-6{ 
+    font-size: 1.1rem; 
+}
+.Home{
+    height: 20px;
+    background: #4a4e69;
+    grid-area: hm;
+    display: grid;
+    grid-template-columns: 4% 4% 92%;
+    grid-template-areas: 
+      "bh ba bc"
+      "bh ba bc";
+    grid-gap: 0.3rem;  
+}
+.Button-Home{
+    grid-area: bh;
+    
+}
+.Button-Alert{
+    grid-area: ba;
+}
+.Button-SignOut{
+    grid-area: bc;
+}
+
+.Overview{
+    height: 400px;
+    background: #4a4e69;
+    grid-area: o;
+    display: grid;
+    grid-template-columns:5% 23% 23% 23% 20%;
+    grid-template-areas: 
+      "p o o o o"
+      "p t1 t2 t3 t4"
+      "p t5 t6 t7 t8"
+      "p t9 t10 t11 t12";
+      
+}
+
+.Performance-Indicator{
+    height: 250px;
+    background: #4a4e69 ;
+    grid-area: p;
+}
+
+.Performance-Trend{
+    height: 250px;
+    background: #4a4e69;
+    grid-area: pt;
+    
+}
+
+.Turbine-1{
+    width: 340px;
+    height: 100px;
+    background: lightgray;
+    grid-area: t1;
+    display: grid;
+    grid-template-columns:40% 60%;
+    grid-template-areas: 
+      "t1a t1b";
+}
+.Turbine-1a{
+    width: 140px;
+    height: 50px;
+    background: lightgray;
+    grid-area: t1a;
+}
+.Turbine-1b{
+    width: 140px;
+    height: 50px;
+    background: lightgray;
+    grid-area: t1b;
+}
+
+.Turbine-2{
+    width: 340px;
+    height: 100px;
+    background: lightgray;
+    grid-area: t2;
+    display: grid;
+    grid-template-columns:40% 60%;
+    grid-template-areas: 
+      "t2a t2b";
+}
+.Turbine-2a{
+    width: 140px;
+    height: 50px;
+    background: lightgray;
+    grid-area: t2a;
+}
+.Turbine-2b{
+    width: 140px;
+    height: 50px;
+    background: lightgray;
+    grid-area: t2b;
+}
+
+.Turbine-3{
+    width: 340px;
+    height: 100px;
+    background: lightgray;
+    grid-area: t3;
+    display: grid;
+    grid-template-columns:40% 60%;
+    grid-template-areas: 
+      "t3a t3b";
+}
+.Turbine-3a{
+    width: 140px;
+    height: 50px;
+    background: lightgray;
+    grid-area: t3a;
+}
+.Turbine-3b{
+    width: 140px;
+    height: 50px;
+    background: lightgray;
+    grid-area: t3b;
+}
+
+.Turbine-4{
+    width: 340px;
+    height: 100px;
+    background: lightgray;
+    grid-area: t4;
+    display: grid;
+    grid-template-columns:40% 60%;
+    grid-template-areas: 
+      "t4a t4b";
+}
+.Turbine-4a{
+    width: 140px;
+    height: 50px;
+    background: lightgray;
+    grid-area: t4a;
+}
+.Turbine-4b{
+    width: 140px;
+    height: 50px;
+    background: lightgray;
+    grid-area: t4b;
+}
+
+.Turbine-5{
+    width: 340px;
+    height: 100px;
+    background: lightgray;
+    grid-area: t5;
+    display: grid;
+    grid-template-columns:40% 60%;
+    grid-template-areas: 
+      "t5a t5b";
+}
+.Turbine-5a{
+    width: 140px;
+    height: 50px;
+    background: lightgray;
+    grid-area: t5a;
+}
+.Turbine-5b{
+    width: 140px;
+    height: 50px;
+    background: lightgray;
+    grid-area: t5b;
+}
+
+.Turbine-6{
+    width: 340px;
+    height: 100px;
+    background: lightgray;
+    grid-area: t6;
+    display: grid;
+    grid-template-columns:40% 60%;
+    grid-template-areas: 
+      "t6a t6b";
+}
+.Turbine-6a{
+    width: 140px;
+    height: 50px;
+    background: lightgray;
+    grid-area: t6a;
+}
+.Turbine-6b{
+    width: 140px;
+    height: 50px;
+    background: lightgray;
+    grid-area: t6b;
+}
+
+.Turbine-7{
+    width: 340px;
+    height: 100px;
+    background: lightgray;
+    grid-area: t7;
+    display: grid;
+    grid-template-columns:40% 60%;
+    grid-template-areas: 
+      "t7a t7b";
+}
+.Turbine-7a{
+    width: 140px;
+    height: 50px;
+    background: lightgray;
+    grid-area: t7a;
+}
+.Turbine-7b{
+    width: 140px;
+    height: 50px;
+    background: lightgray;
+    grid-area: t7b;
+}
+
+.Turbine-8{
+    width: 340px;
+    height: 100px;
+    background: lightgray;
+    grid-area: t8;
+    display: grid;
+    grid-template-columns:40% 60%;
+    grid-template-areas: 
+      "t8a t8b";
+}
+.Turbine-8a{
+    width: 140px;
+    height: 50px;
+    background: lightgray;
+    grid-area: t8a;
+}
+.Turbine-8b{
+    width: 140px;
+    height: 50px;
+    background: lightgray;
+    grid-area: t8b;
+}
+
+.Turbine-9{
+    width: 340px;
+    height: 100px;
+    background: lightgray;
+    grid-area: t9;
+    display: grid;
+    grid-template-columns:40% 60%;
+    grid-template-areas: 
+      "t9a t9b";
+}
+.Turbine-9a{
+    width: 140px;
+    height: 50px;
+    background: lightgray;
+    grid-area: t9a;
+}
+.Turbine-9b{
+    width: 140px;
+    height: 50px;
+    background: lightgray;
+    grid-area: t9b;
+}
+
+.Turbine-10{
+    width: 340px;
+    height: 100px;
+    background: lightgray;
+    grid-area: t10;
+    display: grid;
+    grid-template-columns:40% 60%;
+    grid-template-areas: 
+      "t10a t10b";
+}
+.Turbine-10a{
+    width: 140px;
+    height: 50px;
+    background: lightgray;
+    grid-area: t10a;
+}
+.Turbine-10b{
+    width: 140px;
+    height: 50px;
+    background: lightgray;
+    grid-area: t10b;
+}
+
+.Turbine-11{
+    width: 340px;
+    height: 100px;
+    background: lightgray;
+    grid-area: t11;
+    display: grid;
+    grid-template-columns:40% 60%;
+    grid-template-areas: 
+      "t11a t11b";
+}
+.Turbine-11a{
+    width: 140px;
+    height: 50px;
+    background: lightgray;
+    grid-area: t11a;
+}
+.Turbine-11b{
+    width: 140px;
+    height: 50px;
+    background: lightgray;
+    grid-area: t11b;
+}
+
+.Turbine-12{
+    width: 340px;
+    height: 100px;
+    background: lightgray;
+    grid-area: t12;
+    display: grid;
+    grid-template-columns:40% 60%;
+    grid-template-areas: 
+      "t12a t12b";
+} .Turbine-12a{
+    width: 140px;
+    height: 50px;
+    background: lightgray;
+    grid-area: t12a;
+}
+.Turbine-12b{
+    width: 140px;
+    height: 50px;
+    background: lightgray;
+    grid-area: t12b;
+}
+

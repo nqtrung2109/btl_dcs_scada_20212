@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Alert</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">                 
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+  <link rel="icon" href="data:,">
+   <style type="text/css">  
+   :root{
+            --bg1 :#9b59b6;
+            --bg2 :#3498db;
+            --text :#26ade4;
+        } 
+        *{
+            margin: 0;
+            padding: 0;
+            outline: none;
+        }
+        a{
+            text-decoration: none;
+        }
+   .Background{
+       display: grid;
+       background: #212529;
+       grid-template-columns: 20% 80% ;
+       grid-template-areas: 
+         "h h"
+         "hm hm"
+         "o o"
+         "p pt";
+       grid-gap: 0.3rem;  
+      
+   }
+   .Header{
+       height: 70px;   
+       grid-area: h;
+       background: #343a40;
+   }
+   .Header-1{
+       color: white; 
+       text-align: left;  
+       font-size: 1.5rem; 
+   }
+   .Header-2{
+       color: white; 
+       background-color: gray;
+       text-align: left;  
+       font-size: 1.2rem; 
+   }
+   .Header-3{
+       color: white; 
+       text-align: left;  
+       font-size: 1.1rem; 
+   }
+   .Home{
+       height: 20px;
+       background: #343a40;
+       grid-area: hm;
+       display: grid;
+       grid-template-columns: 4% 96%;
+       grid-template-areas: 
+         "bh ba"
+         "bh ba";
+       grid-gap: 0.3rem;  
+   }
+   .Button-Home{
+        border-radius: 12px;
+        color: rgb(51, 44, 44);
+        padding: 4px 16px;
+        transition-duration: 0.4s;
+        display: inline-block;
+        cursor: pointer;
+        grid-area: bh;
+  }
+  .button-color{
+    background-color: #008CBA;
+  }
+   .Button-Alert{
+       grid-area: ba;
+   }
+
+   .Graph{
+       height: 400px;
+       background: #343a40;
+       grid-area: o;
+   }
+
+   .Performance-Indicator{
+       height: 250px;
+       background: #343a40;
+       grid-area: p;
+   }
+
+   .Alarms{
+       height: 250px;
+       background: #343a40;
+       grid-area: pt;
+   }
+   .Header-4{
+        color: rgb(0, 110, 255); 
+      text-align: left;  
+      font-size: 1.1rem; 
+  }
+
+  </style>
+</head>
+<body>
+    <div class="Background">
+       <div class="Header">
+        <img src="https://www.studytienganh.vn/upload/2021/07/109469.jpg" width="170px" height="65px">
+        <h class="Header-1">  WindSCADA 1.0 powered by Group 8 </h>
+            
+       </div>
+       <div class="Home">
+           <div > <a href="/windpower"><button class="Button-Home button-color">Home</button></a></div>
+          
+       </div>
+
+       <div class="Graph">
+          
+          <p id="barchar"></p>
+       </div>
+
+       <div class="Performance-Indicator">
+          <h class="Header-2"> Performance-Indicator </h>
+          <p class="Header-3">Power:<span class="Header-4"><span id="P">%P1%</span>W</span></p>
+          <p class="Header-3">Wind Speed:<span class="Header-4"><span id="WS">%WS%</span>m/s</span></p>
+       </div>
+
+       <div class="Alarms">  
+          <h class="Header-2"> Site Alarms </h> 
+       </div>
+    </div>
+<script src="jquery.js"></script>
+<script src="socket.io/socket.io.js"> </script>
+<script src="xuly.js"></script>
+<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+</body>
+<script>
+    window.onload = function () {
+    var chart = new CanvasJS.Chart("barchar", {
+	
+	theme: "dark1", // "light1", "light2", "dark1", "dark2"
+	title:{
+		text: "Power Turbin"
+	},
+    
+	axisY: {
+		title: "Power (W)",
+        includeZero: true,
+        suffix: " W"
+	},
+	data: [{        
+		type: "column",  
+        yValueFormatString: "#,### W",
+        indexLable: "{y}",
+		dataPoints: []
+	}]
+    });
+    var win1,win2,win3,win4,win5,win6,win7,win8,win9,win10,win11,win12;
+    socket.on("server-update-barchar", function (data1) {
+        win1=data1.windPower1;
+        win2=data1.windPower2;
+        win3=data1.windPower3;
+        win4=data1.windPower5;
+        win5=data1.windPower5;
+        win6=data1.windPower6;
+        win7=data1.windPower7;
+        win8=data1.windPower8;
+        win9=data1.windPower9;
+        win10=data1.windPower10;
+        win11=data1.windPower11;
+        win12=data1.windPower12;  
+    });
+    function updateChart() {
+        var dps=chart.options.data[0].dataPoints;
+        dps[0]={label:"Turbin1", y: win1, color: "#168aad"};
+        dps[1]={label:"Turbin2", y: 0, color: "#168aad"};
+        dps[2]={label:"Turbin3", y: 0, color: "#168aad"};
+        dps[3]={label:"Turbin4", y: win4, color: "#168aad"};
+        dps[4]={label:"Turbin5", y: win5, color: "#168aad"};
+        dps[5]={label:"Turbin6", y: 0, color: "#168aad"};
+        dps[6]={label:"Turbin7", y: win7, color: "#168aad"};
+        dps[7]={label:"Turbin8", y: win8, color: "#168aad"};
+        dps[8]={label:"Turbin9", y: win9, color: "#168aad"};
+        dps[9]={label:"Turbin10", y: win10, color: "#168aad"};
+        dps[10]={label:"Turbin11", y: win11, color:"#168aad"};
+        dps[11]={label:"Turbin12", y: win12, color:"#168aad"};
+        chart.options.data[0].dataPoints = dps; 
+        chart.render();
+    };
+    // updateChart();
+    setInterval(function() {updateChart()}, 500);
+}   
+    
+</script>
+</html>
