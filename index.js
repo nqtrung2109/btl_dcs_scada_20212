@@ -69,7 +69,7 @@ var con = mysql.createConnection({
     host: 'localhost',
     user: 'root',
     password: 'trung2109',
-    database: 'windpower'
+    database: 'testhbre'
 });
 //---------------------Tạo bảng trong cơ sở dữ liệu-------------------
 con.connect(function (err) {                  // check và ném lỗi ???
