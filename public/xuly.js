@@ -1,11 +1,11 @@
 
 var socket = io("http://localhost:8000")   // đường link dẫn đến trang web
-// init_reload();
-//function init_reload(){
+init_reload();
+function init_reload(){
     setInterval( function() {
-               window.location.reload();
-      },10000);
-//}
+            window.location.reload();
+     },5000);
+}
 socket.on("server-update-data", (data) => {             //Nhận dữ liệu 
     console.log(data)
     $("#P").html(" " + Math.floor(data.windPower))
