@@ -4,6 +4,7 @@ const { randomBytes } = require('crypto') // biến tạo giá trị ngẫu nhi�
 var express = require('express')  // Module xử lí chung
 var mysql = require('mysql2')     // Module cho phép sử dụng cơ sở dữ liệu mySQL 
 const { mainModule } = require('process')
+const delay = require('delay')    
 
 var app = express()               // Khai báo biến app đại diện cho server
 var port = 8000                   // Port của localhost do mình chọn
@@ -69,7 +70,7 @@ var con = mysql.createConnection({
     host: 'localhost',
     user: 'root',
     password: 'trung2109',
-    database: 'testhbre'
+    database: 'windpower'
 });
 //---------------------Tạo bảng trong cơ sở dữ liệu-------------------
 con.connect(function (err) {                  // check và ném lỗi ???
@@ -255,23 +256,17 @@ var sql_turbine9 = "SELECT * FROM turbine9 ORDER BY ID DESC limit 1"
 var sql_turbine10 = "SELECT * FROM turbine10 ORDER BY ID DESC limit 1"
 var sql_turbine11 = "SELECT * FROM turbine11 ORDER BY ID DESC limit 1"
 var sql_turbine12 = "SELECT * FROM turbine12 ORDER BY ID DESC limit 1"
-setInterval(      // gọi 1 hàm thực hiện trong một thời gian nhất định (ms), lặp lại cho đến khi có clearInterval() được gọi hoặc đóng cửa số làm việc
-    function () {
+function loaddata(){
         con.query(sql_site, function (err, result) {     // chọn dữ liệu từ biến var lấy giá trị trong CSDL 
             if (err) throw err
             console.log("Data selected");
             result.forEach(function (value) {    
                 console.log(value)                
-                windSpeed = value.TocDoGio;     //Lấy ra các trường giá trong bảng, gán vào biến trung gian /  + Math.floor(Math.random()*2)
+                // windSpeed = value.TocDoGio;     //Lấy ra các trường giá trong bảng, gán vào biến trung gian /  + Math.floor(Math.random()*2)
                 // windPower = value.CongSuat + Math.floor(Math.random()*100);  
                 console.log(windSpeed + "/ " + windPower );
             })
         })
-        // io.on("connection", () => {    //Khởi tạo kết nốt server
-        //     // io.emit('server-update-data', { windSpeed, windPower })      //Truyền dữ liệu nội bộ server
-        //     // io.emit('server-update-line', {windSpeed, windPower})
-        //     // console.log(windSpeed + " + " + windPower);
-        // });
         con.query(sql_turbine1, function (err, result) {
             if (err) throw err
             console.log("Data selected");
@@ -416,39 +411,31 @@ setInterval(      // gọi 1 hàm thực hiện trong một thời gian nhất �
                 console.log("tb12: " + windSpeed12 + " / " + windPower12 + " / " + windDirection12 + " / " + windStatus12);
             })
         })
-        windPower = windPower1+windPower2+windPower3+windPower4+windPower5+windPower6+windPower7+windPower8+windPower9+windPower10+windPower11+windPower12;  // tổng công suất
-        io.on("connection", () => {
+        windPower = windPower1+windPower2+windPower3+windPower6+windPower7+windPower8+windPower10+windPower11+windPower12;  // tổng công suất
+        windSpeed = (windSpeed1+windSpeed2+windSpeed3+windSpeed6+windSpeed7+windSpeed8+windSpeed10+windSpeed11+windSpeed12)/9;
+    }
+    async function sendalldata(){
+        while(true){
+            loaddata()
             io.emit('server-update-data1', { windSpeed1, windPower1, windDirection1,windStatus1 })   // io.emit gửi dữ liệu đến tất cả client
-            // console.log(windSpeed1 + " + " + windPower1 + " + " + windDirection1 + " + " + windStatus1);
             io.emit('server-update-data2', { windSpeed2, windPower2, windDirection2,windStatus2 })
-            // console.log(windSpeed2 + " + " + windPower2 + " + " + windDirection2 + " + " + windStatus2);
             io.emit('server-update-data3', { windSpeed3, windPower3, windDirection3,windStatus3 })
-            // console.log(windSpeed3 + " + " + windPower3 + " + " + windDirection3 + " + " + windStatus3);
             io.emit('server-update-data4', { windSpeed4, windPower4, windDirection4,windStatus4 })
-            // console.log(windSpeed4 + " + " + windPower4 + " + " + windDirection4 + " + " + windStatus4);
             io.emit('server-update-data5', { windSpeed5, windPower5, windDirection5,windStatus5 })
-            // console.log(windSpeed5 + " + " + windPower5 + " + " + windDirection5 + " + " + windStatus5);
             io.emit('server-update-data6', { windSpeed6, windPower6, windDirection6,windStatus6 })
-            // console.log(windSpeed6 + " + " + windPower6 + " + " + windDirection6 + " + " + windStatus6);
             io.emit('server-update-data7', { windSpeed7, windPower7, windDirection7,windStatus7 })
-            // console.log(windSpeed7 + " + " + windPower7 + " + " + windDirection7 + " + " + windStatus7);
             io.emit('server-update-data8', { windSpeed8, windPower8, windDirection8,windStatus8 })
-            // console.log(windSpeed8 + " + " + windPower8 + " + " + windDirection8 + " + " + windStatus8);
             io.emit('server-update-data9', { windSpeed9, windPower9, windDirection9,windStatus9 })
-            // console.log(windSpeed9 + " + " + windPower9 + " + " + windDirection9 + " + " + windStatus9);
             io.emit('server-update-data10', { windSpeed10, windPower10, windDirection10,windStatus10 })
-            // console.log(windSpeed10 + " + " + windPower10 + " + " + windDirection10 + " + " + windStatus10);
             io.emit('server-update-data11', { windSpeed11, windPower11, windDirection11,windStatus11 })
-            // console.log(windSpeed11 + " + " + windPower11 + " + " + windDirection11 + " + " + windStatus11);
             io.emit('server-update-data12', { windSpeed12, windPower12, windDirection12,windStatus12 })
-            // console.log(windSpeed12 + " + " + windPower12 + " + " + windDirection12 + " + " + windStatus12);
             io.emit('server-update-barchar',{windPower1,windPower2,windPower3,windPower4,windPower5,windPower6,windPower7,windPower8,windPower9,windPower10,windPower11,windPower12})
-            io.emit('server-update-data', { windSpeed, windPower })      //Truyền dữ liệu nội bộ server
+            io.emit('server-update-data', { windSpeed, windPower})      //Truyền dữ liệu nội bộ server
             io.emit('server-update-line', {windSpeed, windPower})
-        });
-    }, 3000
-)
-
+            await delay(2000);
+        };
+    }
+    sendalldata()
 
 
  

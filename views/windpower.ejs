@@ -474,8 +474,8 @@
             <table class="table table-borderless" style="table-layout: fixed; background-color: grey;">
                 <tbody>
                     <tr>
-                        <th colspan="5"><img class="float-right" src="https://images.sw.cdn.siemens.com/siemens-disw-assets/public/5R4wxPnxbNniJoXzzFSIia/fr-FR/AES-Wind-Landing-Page-Offshore-wind-farm-640x360_tcm27-106585.jpg?w=500&fit=max&q=60&dpr=1&auto=format"></th>
-                        <th colspan="5"><h3 style="color: white;">WindSCADA powered by Group 8</h3></th>
+                        <th colspan="5"><img class="float-right" src="https://images.sw.cdn.siemens.com/siemens-disw-assets/public/5R4wxPnxbNniJoXzzFSIia/fr-FR/AES-Wind-Landing-Page-Offshore-wind-farm-640x360_tcm27-106585.jpg?w=500&fit=max&q=60&dpr=1&auto=format" width=150vw height=100vh></th>
+                        <th colspan="5"><h3 style="color: white;" >SCADA for WindPower HBRE group 9</h3></th>
                     </tr>
                 </tbody>
             </table>
@@ -484,7 +484,7 @@
             <div class="row">
                 <div class="col">
                     <a href="/windpower"><button class="btn btn-primary">Home</button></a>
-                    <a href="/alert"><button class="btn btn-danger"> Alert</button></a>
+                    <a href="/alert"><button class="btn btn-danger">Alert</button></a>
                     <a href="/"><button class="btn btn-info">Logout</button></a>
                 </div>
             </div>
@@ -851,7 +851,7 @@
                         <th scope="row">Power</th>
                         <td><span><span id="P"></span>kW</span></td>
                         <th rowspan="2" colspan="10">
-                            <p id="charttrend" style="height: 230px; width: 100%;"></p>
+                              <canvas id="myChart" width=230vw height=100%></canvas>
                         </th>
                     </tr>
                     <tr>
@@ -879,12 +879,105 @@
     <script src="socket.io/socket.io.js"> </script>
     <script src="xuly.js"></script>
     <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
-        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
 </body>
 <script>
-    window.onload = function () {
+     let dataPower = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+        let dataWind = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+        var cxt = document.getElementById("myChart").getContext("2d");
+        var myChart = new Chart(cxt, {
+            type: "line",
+            data: {
+                labels: [0,10,20,30,40,50,60,70,80,90,100,110,120,130,140,150,160,170,180,190],
+                datasets: [
+                    {
+                        data: dataPower,
+                        label: "power",
+                        yAxisID: "power",
+                        borderColor: "#3e95cd",
+                        fill: false,
+                    },
+                    {
+                        data: dataWind,
+                        label: "wind",
+                        yAxisID: "wind",
+                        borderColor: "#8e5ea2",
+                        fill: false,
+                    },
+                ],
+            },
+            options: {
+                title: {
+                    display: true,
+                    fontSize: 15,
+                },
+                scales: {
+                    yAxes: [
+                        {
+                            id: "wind",
+                            position: "right",
+                            scaleLabel: {
+                                display: true,
+                                labelString: "Wind Speed(m/s)",
+                                fontSize: 15,                              
+                            },
+                            ticks: {
+                                    beginAtZero: true,
+                                    steps: 1,
+                                    max: 7,
+                            },
+                        },
+                        {
+                            id: "power",
+                            position: "left",
+                            scaleLabel: {
+                                display: true,
+                                labelString: "POWER(KW)",
+                                fontSize: 15,
+                                beginAtZero: true,
+                            },
+                            ticks: {
+                                    beginAtZero: true,
+                                    steps: 1000,
+                                    max: 7000,
+                            },
+                        },
+                    ],
+                    xAxes: [
+                        {
+                            scaleLabel: {
+                                display: true,
+                                labelString: "s",
+                                fontSize: 15,
+                            },
+                        },
+                    ],
+                },
+            },
+        });
+        socket.on("server-update-line", function (data13) {
+            dataPower[0]   = data13.windPower;
+            dataWind[0]    = data13.windSpeed;  
+        });
+        let flagPower = setInterval(() => {
+            let newData = dataPower[0];
+                oldData = dataPower.slice(1); // dịch dữ liệu 
+            oldData.push(newData);
+            dataPower = [].concat(oldData);
+            myChart.data.datasets[0].data = dataPower;
+            myChart.update(0);
+            // disable animation
+        }, 2000);
+        let flagWind = setInterval(() => {
+            let newData = dataWind[0];
+                oldData = dataWind.slice(1);
+            oldData.push(newData);
+            dataWind = [].concat(oldData);
+            myChart.data.datasets[1].data = dataWind;
+            myChart.update(0);
+            // disable animation
+        }, 2000);
+    /*window.onload = function () {
         var chart = new CanvasJS.Chart("charttrend", {
             theme: "dark1",
             title: {
@@ -901,7 +994,7 @@
                 includeZero: true,
                 labelFontColor: "#369EAD",
                 titleFontColor: "#369EAD",
-                includeZero: true,
+                includeZero: true,         
                 suffix: "kW"
             }],
             axisY2: {
@@ -959,17 +1052,18 @@
         // chart.render();
         var powersite, windsite;
         var datalength = 50;
-        socket.on("server-update-line", function (data2) {
-            powersite = data2.windPower;
-            windsite = data2.windSpeed;
-        });
+        socket.on("server-update-line", function (data13) {
+                powersite = data13.windPower;
+                windsite = data13.windSpeed;
+            });
+
         function updateChart() {
             var dps1 = chart.options.data[0].dataPoints;
             var dps2 = chart.options.data[1].dataPoints;
             for (i = 0; i < datalength; i++) {
                 var xVal = i;
-                var yVal1 = powersite + Math.floor(Math.random() * 100);
-                var yVal2 = windsite + Math.floor(Math.random() * 2);
+                var yVal1 = powersite;
+                var yVal2 = windsite;
                 dps1[i] = { x: xVal, y: yVal1 };
                 dps2[i] = { x: xVal, y: yVal2 };
             }
@@ -978,8 +1072,8 @@
             chart.render();
         };
         updateChart();
-        setInterval(function () { updateChart() }, 1000);
-    }
+        setInterval(function () { updateChart() }, 3000);
+    }*/
 </script>
 
 </html>

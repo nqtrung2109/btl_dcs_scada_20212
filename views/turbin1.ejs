@@ -21,7 +21,7 @@
         }
    .Background{
        display: grid;
-       background: #212529;
+       background: grey;
        grid-template-columns: 20% 80% ;
        grid-template-areas: 
          "h h"
@@ -80,8 +80,8 @@
    }
 
    .Graph{
-       height: 400px;
-       background: #343a40;
+       height: 300px;
+       background: white;
        grid-area: o;
    }
 
@@ -98,8 +98,8 @@
    }
    .Header-4{
         color: rgb(0, 110, 255); 
-      text-align: left;  
-      font-size: 1.1rem; 
+       text-align: left;  
+       font-size: 1.1rem; 
   }
 
   </style>
@@ -108,182 +108,118 @@
     <div class="Background">
        <div class="Header">
         <img src="https://www.studytienganh.vn/upload/2021/07/109469.jpg" width="170px" height="65px">
-        <h class="Header-1">  WindSCADA 1.0 powered by Group 8 </h>
+        <h class="Header-1">  SCADA for WindPower HBRE group 9 </h>
             
        </div>
        <div class="Home">
            <div > <a href="/windpower"><button class="Button-Home button-color">Home</button></a></div>
-          
        </div>
 
        <div class="Graph">
-          
-          <p id="Turbin1_Chart"></p>
+        <canvas id="Tb1Chart" width= 300vw height=100%></canvas>
        </div>
-
-       <div class="Performance-Indicator">
-          <h class="Header-2"> Performance-Indicator </h>
-          <p class="Header-3">Power:<span class="Header-4"><span id="P">%P1%</span>W</span></p>
-          <p class="Header-3">Wind Speed:<span class="Header-4"><span id="WS">%WS%</span>m/s</span></p>
-       </div>
-
-       <div class="Performance-Trend">  
-        <h class="Header-2"> Performance-Trend </h> 
-        <p id="charttrend" style="height: 230px; width: 95%;"></p>
-     </div>
     </div>
-<script src="jquery.js"></script>
-<script src="socket.io/socket.io.js"> </script>
-<script src="xuly.js"></script>
-<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+    <script src="jquery.js"></script>
+    <script src="socket.io/socket.io.js"> </script>
+    <script src="xuly.js"></script>
+    <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
 </body>
 <script>
-    window.onload = function () {
-        var chart = new CanvasJS.Chart("Turbin1_Chart", {
-    theme: "dark1",
-	title:{
-		text: "Turbin 1"
-	},
-    xAxis: {
-    type: 'datetime',
-    dateTimeLabelFormats: { second: '%H:%M' }
-  },
-	axisY:[{
-		title: "Power (kW)",
-		lineColor: "#369EAD",
-		tickColor: "#369EAD",
-        includeZero: true,
-		labelFontColor: "#369EAD",
-		titleFontColor: "#369EAD",
-		includeZero: true,
-		suffix: "kW"
-	}],
-	axisY2: {
-		title: "Wind Speed",
-		lineColor: "#f6bd60",
-		tickColor: "#7F6084",
-        includeZero: true,
-		labelFontColor: "#7F6084",
-		titleFontColor: "#7F6084",
-		includeZero: true,
-		suffix: "m/s"
-	},
-	data: [{
-		type: "spline",
-		name: "Power",
-		color: "#369EAD",
-        markerSize: 0,
-		axisYIndex: 1,
-        showInLegend: true,
-		dataPoints: []
-	},
-	{
-		type: "spline",
-		name: "Wind Speed",
-		color: "#f6bd60",
-        markerSize: 3,
-		axisYType: "secondary",
-        showInLegend: true,
-		dataPoints: []
-	}]
-    });
-    // chart.render();
-    var  powerturbin1,windturbin1;
-    var datalength1 = 50;
-    socket.on("server-update-line", function (data2) {
-        powerturbin1   = data2.windPower;
-        windturbin1    = data2.windSpeed;  
-    });
-    function updateChart1() {
-        var dps1=chart.options.data[0].dataPoints;
-        var dps2=chart.options.data[1].dataPoints;
-        for (i=0; i < datalength1; i++)
-        {
-            var xVal  = i;
-            var yVal1 = powerturbin1 + Math.floor(Math.random()*100);
-            var yVal2 = windturbin1  + Math.floor(Math.random()*2);
-            dps1[i] = {x: xVal, y: yVal1}; 
-            dps2[i] = {x: xVal, y: yVal2};
-        }
-        chart.options.data[0].dataPoints = dps1; 
-        chart.options.data[1].dataPoints = dps2; 
-        chart.render();
-    };
-    updateChart1();
-    setInterval(function() {updateChart1()}, 1000);
-
-    var chart1 = new CanvasJS.Chart("charttrend", {
-    theme: "dark1",
-	title:{
-		text: ""
-	},
-    xAxis: {
-    type: 'datetime',
-    dateTimeLabelFormats: { second: '%H:%M' }
-  },
-	axisY:[{
-		title: "Power (kW)",
-		lineColor: "#369EAD",
-		tickColor: "#369EAD",
-        includeZero: true,
-		labelFontColor: "#369EAD",
-		titleFontColor: "#369EAD",
-		includeZero: true,
-		suffix: "kW"
-	}],
-	axisY2: {
-		title: "Wind Speed",
-		lineColor: "#f6bd60",
-		tickColor: "#7F6084",
-        includeZero: true,
-		labelFontColor: "#7F6084",
-		titleFontColor: "#7F6084",
-		includeZero: true,
-		suffix: "m/s"
-	},
-	data: [{
-		type: "spline",
-		name: "Power",
-		color: "#369EAD",
-        markerSize: 0,
-		axisYIndex: 1,
-        showInLegend: true,
-		dataPoints: []
-	},
-	{
-		type: "spline",
-		name: "Wind Speed",
-		color: "#f6bd60",
-        markerSize: 3,
-		axisYType: "secondary",
-        showInLegend: true,
-		dataPoints: []
-	}]
-    });
-
-    var  powersite,windsite;
-    var datalength = 50;
-    socket.on("server-update-line", function (data2) {
-        powersite   = data2.windPower;
-        windsite    = data2.windSpeed;  
-    });
-    function updateChart() {
-        var dps1=chart1.options.data[0].dataPoints;
-        var dps2=chart1.options.data[1].dataPoints;
-        for (i=0; i < datalength; i++)
-        {
-            var xVal  = i;
-            var yVal1 = powersite + Math.floor(Math.random()*100);
-            var yVal2 = windsite  + Math.floor(Math.random()*2);
-            dps1[i] = {x: xVal, y: yVal1}; 
-            dps2[i] = {x: xVal, y: yVal2};
-        }
-        chart1.options.data[0].dataPoints = dps1; 
-        chart1.options.data[1].dataPoints = dps2; 
-        chart1.render();
-    };
-    updateChart();
-    setInterval(function() {updateChart()}, 1000);
-    }
+    let dataPower = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+       let dataWind = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+       var cxt = document.getElementById("Tb1Chart").getContext("2d");
+       var Tb1Chart = new Chart(cxt, {
+           type: "line",
+           data: {
+               labels: [0,10,20,30,40,50,60,70,80,90,100,110,120,130,140,150,160,170,180,190],
+               datasets: [
+                   {
+                       data: dataPower,
+                       label: "power",
+                       yAxisID: "power",
+                       borderColor: "#3e95cd",
+                       fill: false,
+                   },
+                   {
+                       data: dataWind,
+                       label: "wind",
+                       yAxisID: "wind",
+                       borderColor: "#8e5ea2",
+                       fill: false,
+                   },
+               ],
+           },
+           options: {
+               title: {
+                   display: true,
+                   fontSize: 15,
+               },
+               scales: {
+                   yAxes: [
+                       {
+                           id: "wind",
+                           position: "right",
+                           scaleLabel: {
+                               display: true,
+                               labelString: "Wind Speed(m/s)",
+                               fontSize: 15,                              
+                           },
+                           ticks: {
+                                   beginAtZero: true,
+                                   steps: 1,
+                                   max: 7,
+                           },
+                       },
+                       {
+                           id: "power",
+                           position: "left",
+                           scaleLabel: {
+                               display: true,
+                               labelString: "POWER(KW)",
+                               fontSize: 15,
+                               beginAtZero: true,
+                           },
+                           ticks: {
+                                   beginAtZero: true,
+                                   steps: 1000,
+                                   max: 7000,
+                           },
+                       },
+                   ],
+                   xAxes: [
+                       {
+                           scaleLabel: {
+                               display: true,
+                               labelString: "s",
+                               fontSize: 15,
+                           },
+                       },
+                   ],
+               },
+           },
+       });
+       socket.on("server-update-data1", function (data1) {
+           dataPower1[0]   = data1.windPower1;
+           dataWind1[0]    = data1.windSpeed1;  
+       });
+       let flagPower = setInterval(() => {
+           let newData1 = dataPower1[0];
+               oldData1 = dataPower1.slice(1); // dịch dữ liệu 
+           oldData1.push(newData1);
+           dataPower1 = [].concat(oldData1);
+           Tb1Chart.data.datasets[0].data = dataPower1;
+           Tb1Chart.update(0);
+           // disable animation
+       }, 2000);
+       let flagWind = setInterval(() => {
+           let newData1 = dataWind1[0];
+               oldData1 = dataWind1.slice(1);
+           oldData1.push(newData1);
+           dataWind1 = [].concat(oldData1);
+           Tb1Chart.data.datasets[1].data = dataWind1;
+           Tb1Chart.update(0);
+           // disable animation
+       }, 2000);
     </script>
 </html>
