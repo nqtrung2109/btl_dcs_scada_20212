@@ -924,7 +924,7 @@
                             ticks: {
                                     beginAtZero: true,
                                     steps: 1,
-                                    max: 7,
+                                    max: 6,
                             },
                         },
                         {
@@ -977,103 +977,6 @@
             myChart.update(0);
             // disable animation
         }, 2000);
-    /*window.onload = function () {
-        var chart = new CanvasJS.Chart("charttrend", {
-            theme: "dark1",
-            title: {
-                text: ""
-            },
-            xAxis: {
-                type: 'datetime',
-                dateTimeLabelFormats: { second: '%H:%M' }
-            },
-            axisY: [{
-                title: "Power (kW)",
-                lineColor: "#369EAD",
-                tickColor: "#369EAD",
-                includeZero: true,
-                labelFontColor: "#369EAD",
-                titleFontColor: "#369EAD",
-                includeZero: true,         
-                suffix: "kW"
-            }],
-            axisY2: {
-                title: "Wind Speed",
-                lineColor: "#f6bd60",
-                tickColor: "#7F6084",
-                includeZero: true,
-                labelFontColor: "#7F6084",
-                titleFontColor: "#7F6084",
-                includeZero: true,
-                suffix: "m/s"
-            },
-            // toolTip: {
-            // 	shared: true
-            // },
-            // legend: {
-            // 	// cursor:"pointer",
-            // 	verticalAlign: "bottom",
-            // 	fontSize: 15,
-            // 	// fontColor: "dimGrey",
-            // 	//itemclick : toggleDataSeries
-            // },
-            data: [{
-                type: "spline",
-                name: "Power",
-                color: "#369EAD",
-                markerSize: 0,
-                axisYIndex: 1,
-                showInLegend: true,
-                dataPoints: [
-                    // { x: (new Date()).gettime(), y: 85.4 }, 
-                    // { x: (new Date()).gettime(), y: 92.7 },
-                    // { x: (new Date()).gettime(), y: 64.9 },
-                    // { x: (new Date()).gettime(), y: 58.0 },
-                    // { x: (new Date()).gettime(), y: 63.4 },
-
-                ]
-            },
-            {
-                type: "spline",
-                name: "Wind Speed",
-                color: "#f6bd60",
-                markerSize: 3,
-                axisYType: "secondary",
-                showInLegend: true,
-                dataPoints: [
-                    // { x: (new Date()).gettime(), y: 42.5 }, 
-                    // { x: (new Date()).gettime(), y: 44.3 },
-                    // { x: (new Date()).gettime(), y: 28.7 },
-                    // { x: (new Date()).gettime(), y: 22.5 },
-                    // { x: (new Date()).gettime(), y: 25.6 },
-                ]
-            }]
-        });
-        // chart.render();
-        var powersite, windsite;
-        var datalength = 50;
-        socket.on("server-update-line", function (data13) {
-                powersite = data13.windPower;
-                windsite = data13.windSpeed;
-            });
-
-        function updateChart() {
-            var dps1 = chart.options.data[0].dataPoints;
-            var dps2 = chart.options.data[1].dataPoints;
-            for (i = 0; i < datalength; i++) {
-                var xVal = i;
-                var yVal1 = powersite;
-                var yVal2 = windsite;
-                dps1[i] = { x: xVal, y: yVal1 };
-                dps2[i] = { x: xVal, y: yVal2 };
-            }
-            chart.options.data[0].dataPoints = dps1;
-            chart.options.data[1].dataPoints = dps2;
-            chart.render();
-        };
-        updateChart();
-        setInterval(function () { updateChart() }, 3000);
-    }*/
 </script>
 
 </html>

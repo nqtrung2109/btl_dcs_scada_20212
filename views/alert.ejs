@@ -21,7 +21,7 @@
         }
    .Background{
        display: grid;
-       background: grey;
+       background: #212529;
        grid-template-columns: 20% 80% ;
        grid-template-areas: 
          "h h"
@@ -81,7 +81,7 @@
 
    .Graph{
        height: 400px;
-       background: #343a40;
+       background: white;
        grid-area: o;
    }
 
@@ -107,8 +107,8 @@
 <body>
     <div class="Background">
        <div class="Header">
-        <img src="https://www.studytienganh.vn/upload/2021/07/109469.jpg" width="170px" height="65px">
-        <h class="Header-1">  WindSCADA 1.0 powered by Group 8 </h>
+        <img src= "https://images.sw.cdn.siemens.com/siemens-disw-assets/public/5R4wxPnxbNniJoXzzFSIia/fr-FR/AES-Wind-Landing-Page-Offshore-wind-farm-640x360_tcm27-106585.jpg?w=500&fit=max&q=60&dpr=1&auto=format" width=170px height= 70px>
+        <h class="Header-1">  SCADA for WindPower HBRE group 9 </h>
             
        </div>
        <div class="Home">
@@ -117,7 +117,7 @@
        </div>
 
        <div class="Graph">
-          
+            <canvas id="myChart" width= 200px height= 58%></canvas> 
           <p id="barchar"></p>
        </div>
 
@@ -135,9 +135,100 @@
 <script src="socket.io/socket.io.js"> </script>
 <script src="xuly.js"></script>
 <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
 </body>
 <script>
-    window.onload = function () {
+
+
+let dataPower = [523,576,589,0,0,551,512,546,0,534,586,589];
+    var cxt = document.getElementById("myChart").getContext("2d");
+    var myChart = new Chart(cxt, {
+      type: 'bar',
+      data: {
+        labels: [1, 2, 3, 4, 5,6,7,8,9,10,11,12],
+        datasets: [{
+                        data: dataPower,
+                        label: "power",
+                        yAxisID: "power",
+                        backgroundColor: "#3e95cd",
+                        fill: false,
+                        
+                    },
+                    ]
+      },
+      options: {
+        title: {
+                    display: true,
+                    text: "POWER BAR GRAPH",
+                    fontSize: 15,
+                },
+                scales: {
+                    yAxes: [
+                        {
+                            id: "power",
+                            position: "left",
+                            scaleLabel: {
+                                display: true,
+                                labelString: "POWER(KW)",
+                                fontSize: 15,
+                                beginAtZero: true,
+                            },
+                            ticks: {
+                                    beginAtZero: true,
+                                    steps: 100,
+                                    max: 700
+                            },
+                        },
+                    ],
+                    xAxes: [
+                        {
+                            scaleLabel: {
+                                display: true,
+                                labelString: "TURBINE",
+                                fontSize: 15,
+                            },
+                        },
+                    ],
+                },
+      }
+    });
+
+    var win1,win2,win3,win4,win5,win6,win7,win8,win9,win10,win11,win12;
+    socket.on("server-update-barchar", function (data1) {
+        win1=data1.windPower1;
+        win2=data1.windPower2;
+        win3=data1.windPower3;
+        win4=data1.windPower5;
+        win5=data1.windPower5;
+        win6=data1.windPower6;
+        win7=data1.windPower7;
+        win8=data1.windPower8;
+        win9=data1.windPower9;
+        win10=data1.windPower10;
+        win11=data1.windPower11;
+        win12=data1.windPower12;  
+    });
+    
+     let flagPower = setInterval(() => {
+         /* let newData = dataPower[0] + Math.floor(Math.random() * 100),
+             oldData = dataPower.slice(1);
+         oldData.push(newData);
+         dataPower = [].concat(oldData);
+         myChart.data.datasets[0].data = dataPower; */
+         myChart.update();
+         // disable animation
+     }, 2000);
+     let flagWind = setInterval(() => {
+         /* let newData = dataWind[0] + Math.floor(Math.random() * 1),
+             oldData = dataWind.slice(1);
+         oldData.push(newData);
+         dataWind = [].concat(oldData);
+         myChart.data.datasets[1].data = dataWind; */
+         myChart.update();
+         // disable animation
+     }, 2000);
+
+    /* window.onload = function () {
     var chart = new CanvasJS.Chart("barchar", {
 	
 	theme: "dark1", // "light1", "light2", "dark1", "dark2"
@@ -191,7 +282,7 @@
     };
     // updateChart();
     setInterval(function() {updateChart()}, 500);
-}   
+} */   
     
 </script>
 </html>
