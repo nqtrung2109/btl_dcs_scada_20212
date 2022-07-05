@@ -95,3 +95,4 @@ socket.on("server-update-data12", (data12) => {
     $("#WD12").html(" " + data12.windDirection12)
     $("#S12").html(" " + data12.windStatus12) 
 })
+

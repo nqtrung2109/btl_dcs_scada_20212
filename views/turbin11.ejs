@@ -6,22 +6,9 @@
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
   <link rel="icon" href="data:,">
    <style type="text/css">  
-   :root{
-            --bg1 :#9b59b6;
-            --bg2 :#3498db;
-            --text :#26ade4;
-        } 
-        *{
-            margin: 0;
-            padding: 0;
-            outline: none;
-        }
-        a{
-            text-decoration: none;
-        }
-   .Background{
+  .Background{
        display: grid;
-       background: #212529;
+       background: gray;
        grid-template-columns: 20% 80% ;
        grid-template-areas: 
          "h h"
@@ -32,29 +19,16 @@
       
    }
    .Header{
-       height: 70px;   
+       height: 80px;   
        grid-area: h;
-       background: #343a40;
+       background: gray;
    }
    .Header-1{
        color: white; 
-       text-align: left;  
-       font-size: 1.5rem; 
-   }
-   .Header-2{
-       color: white; 
-       background-color: gray;
-       text-align: left;  
-       font-size: 1.2rem; 
-   }
-   .Header-3{
-       color: white; 
-       text-align: left;  
-       font-size: 1.1rem; 
+       font-size: 2rem; 
    }
    .Home{
        height: 20px;
-       background: #343a40;
        grid-area: hm;
        display: grid;
        grid-template-columns: 4% 96%;
@@ -72,218 +46,123 @@
         cursor: pointer;
         grid-area: bh;
   }
-  .button-color{
-    background-color: #008CBA;
-  }
-   .Button-Alert{
-       grid-area: ba;
-   }
-
-   .Graph{
-       height: 400px;
-       background: #343a40;
-       grid-area: o;
-   }
-
-   .Performance-Indicator{
-       height: 250px;
-       background: #343a40;
-       grid-area: p;
-   }
-
-   .Alarms{
-       height: 250px;
-       background: #343a40;
-       grid-area: pt;
-   }
-   .Header-4{
-        color: rgb(0, 110, 255); 
-      text-align: left;  
-      font-size: 1.1rem; 
-  }
-
   </style>
 </head>
 <body>
     <div class="Background">
        <div class="Header">
-        <img src="https://www.studytienganh.vn/upload/2021/07/109469.jpg" width="170px" height="65px">
-        <h class="Header-1">  WindSCADA 1.0 powered by Group 8 </h>
-            
-       </div>
-       <div class="Home">
-           <div > <a href="/windpower"><button class="Button-Home button-color">Home</button></a></div>
-          
-       </div>
-
-       <div class="Graph">
-          
-          <p id="Turbin1_Chart"></p>
+        <img src="https://physics.aps.org/assets/bb8d573b-76fb-400f-a6d2-17ab9a98b017/e58_1.png" width="150px" height="93px">
+        <h class="Header-1"  style = "text-align: center" >  SCADA for WindPower HBRE Group 9 </h>    
+        <div class="Home">
+            <div > <a href="/windpower"><button class="Button-Home button-color">Home</button></a></div>
+        </div>
+        <canvas id="tb11Chart" width= 250vw height=90%></canvas>
        </div>
 
-       <div class="Performance-Indicator">
-          <h class="Header-2"> Performance-Indicator </h>
-          <p class="Header-3">Power:<span class="Header-4"><span id="P">%P1%</span>W</span></p>
-          <p class="Header-3">Wind Speed:<span class="Header-4"><span id="WS">%WS%</span>m/s</span></p>
-       </div>
-
-       <div class="Performance-Trend">  
-        <h class="Header-2"> Performance-Trend </h> 
-        <p id="charttrend" style="height: 230px; width: 95%;"></p>
-     </div>
+      
     </div>
-<script src="jquery.js"></script>
-<script src="socket.io/socket.io.js"> </script>
-<script src="xuly.js"></script>
-<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+    <script src="jquery.js"></script>
+    <script src="socket.io/socket.io.js"> </script>
+    <script src="xuly.js"></script>
+    <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
 </body>
 <script>
-    window.onload = function () {
-        var chart = new CanvasJS.Chart("Turbin1_Chart", {
-    theme: "dark1",
-	title:{
-		text: "Turbin 11"
-	},
-    xAxis: {
-    type: 'datetime',
-    dateTimeLabelFormats: { second: '%H:%M' }
-  },
-	axisY:[{
-		title: "Power (kW)",
-		lineColor: "#369EAD",
-		tickColor: "#369EAD",
-        includeZero: true,
-		labelFontColor: "#369EAD",
-		titleFontColor: "#369EAD",
-		includeZero: true,
-		suffix: "kW"
-	}],
-	axisY2: {
-		title: "Wind Speed",
-		lineColor: "#f6bd60",
-		tickColor: "#7F6084",
-        includeZero: true,
-		labelFontColor: "#7F6084",
-		titleFontColor: "#7F6084",
-		includeZero: true,
-		suffix: "m/s"
-	},
-	data: [{
-		type: "spline",
-		name: "Power",
-		color: "#369EAD",
-        markerSize: 0,
-		axisYIndex: 1,
-        showInLegend: true,
-		dataPoints: []
-	},
-	{
-		type: "spline",
-		name: "Wind Speed",
-		color: "#f6bd60",
-        markerSize: 3,
-		axisYType: "secondary",
-        showInLegend: true,
-		dataPoints: []
-	}]
-    });
-    // chart.render();
-    var  powerturbin1,windturbin1;
-    var datalength1 = 50;
-    socket.on("server-update-line", function (data2) {
-        powerturbin1   = data2.windPower;
-        windturbin1    = data2.windSpeed;  
-    });
-    function updateChart1() {
-        var dps1=chart.options.data[0].dataPoints;
-        var dps2=chart.options.data[1].dataPoints;
-        for (i=0; i < datalength1; i++)
-        {
-            var xVal  = i;
-            var yVal1 = powerturbin1 + Math.floor(Math.random()*100);
-            var yVal2 = windturbin1  + Math.floor(Math.random()*2);
-            dps1[i] = {x: xVal, y: yVal1}; 
-            dps2[i] = {x: xVal, y: yVal2};
-        }
-        chart.options.data[0].dataPoints = dps1; 
-        chart.options.data[1].dataPoints = dps2; 
-        chart.render();
-    };
-    updateChart1();
-    setInterval(function() {updateChart1()}, 1000);
-
-    var chart1 = new CanvasJS.Chart("charttrend", {
-    theme: "dark1",
-	title:{
-		text: ""
-	},
-    xAxis: {
-    type: 'datetime',
-    dateTimeLabelFormats: { second: '%H:%M' }
-  },
-	axisY:[{
-		title: "Power (kW)",
-		lineColor: "#369EAD",
-		tickColor: "#369EAD",
-        includeZero: true,
-		labelFontColor: "#369EAD",
-		titleFontColor: "#369EAD",
-		includeZero: true,
-		suffix: "kW"
-	}],
-	axisY2: {
-		title: "Wind Speed",
-		lineColor: "#f6bd60",
-		tickColor: "#7F6084",
-        includeZero: true,
-		labelFontColor: "#7F6084",
-		titleFontColor: "#7F6084",
-		includeZero: true,
-		suffix: "m/s"
-	},
-	data: [{
-		type: "spline",
-		name: "Power",
-		color: "#369EAD",
-        markerSize: 0,
-		axisYIndex: 1,
-        showInLegend: true,
-		dataPoints: []
-	},
-	{
-		type: "spline",
-		name: "Wind Speed",
-		color: "#f6bd60",
-        markerSize: 3,
-		axisYType: "secondary",
-        showInLegend: true,
-		dataPoints: []
-	}]
-    });
-
-    var  powersite,windsite;
-    var datalength = 50;
-    socket.on("server-update-line", function (data2) {
-        powersite   = data2.windPower;
-        windsite    = data2.windSpeed;  
-    });
-    function updateChart() {
-        var dps1=chart1.options.data[0].dataPoints;
-        var dps2=chart1.options.data[1].dataPoints;
-        for (i=0; i < datalength; i++)
-        {
-            var xVal  = i;
-            var yVal1 = powersite + Math.floor(Math.random()*100);
-            var yVal2 = windsite  + Math.floor(Math.random()*2);
-            dps1[i] = {x: xVal, y: yVal1}; 
-            dps2[i] = {x: xVal, y: yVal2};
-        }
-        chart1.options.data[0].dataPoints = dps1; 
-        chart1.options.data[1].dataPoints = dps2; 
-        chart1.render();
-    };
-    updateChart();
-    setInterval(function() {updateChart()}, 1000);
-    }
+     let dataPower = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+        let dataWind = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+        var cxt = document.getElementById("tb11Chart").getContext("2d");
+        var tb1Chart = new Chart(cxt, {
+            type: "line",
+            data: {
+                labels: [0,10,20,30,40,50,60,70,80,90,100,110,120,130,140,150,160,170,180,190],
+                datasets: [
+                    {
+                        data: dataPower,
+                        label: "power",
+                        yAxisID: "power",
+                        borderColor: "#3e95cd",
+                        fill: false,
+                    },
+                    {
+                        data: dataWind,
+                        label: "wind",
+                        yAxisID: "wind",
+                        borderColor: "#8e5ea2",
+                        fill: false,
+                    },
+                ],
+            },
+            options: {
+                title: {
+                    display: true,
+                    text: "TURBINE11",
+                    fontSize: 15,
+                },
+                scales: {
+                    yAxes: [
+                        {
+                            id: "wind",
+                            position: "right",
+                            scaleLabel: {
+                                display: true,
+                                labelString: "Wind Speed(m/s)",
+                                fontSize: 15,                              
+                            },
+                            ticks: {
+                                    beginAtZero: true,
+                                    steps: 1,
+                                    max: 8,
+                            },
+                        },
+                        {
+                            id: "power",
+                            position: "left",
+                            scaleLabel: {
+                                display: true,
+                                labelString: "POWER(KW)",
+                                fontSize: 15,
+                                beginAtZero: true,
+                            },
+                            ticks: {
+                                    beginAtZero: true,
+                                    steps: 100,
+                                    max: 700,
+                            },
+                        },
+                    ],
+                    xAxes: [
+                        {
+                            scaleLabel: {
+                                display: true,
+                                labelString: "s",
+                                fontSize: 15,
+                            },
+                        },
+                    ],
+                },
+            },
+        });
+        socket.on("server-update-data11", function (datatrendtb11) {
+            dataPower[0]   = datatrendtb11.windPower11;
+            dataWind[0]    = datatrendtb11.windSpeed11;  
+        });
+        let flagPower = setInterval(() => {
+            let newData = dataPower[0];
+                oldData = dataPower.slice(1); // dịch dữ liệu 
+            oldData.push(newData);
+            dataPower = [].concat(oldData);
+            tb1Chart.data.datasets[0].data = dataPower;
+            tb1Chart.update(0);
+            // disable animation
+        }, 2000);
+        let flagWind = setInterval(() => {
+            let newData = dataWind[0];
+                oldData = dataWind.slice(1);
+            oldData.push(newData);
+            dataWind = [].concat(oldData);
+            tb1Chart.data.datasets[1].data = dataWind;
+            tb1Chart.update(0);
+            // disable animation
+        }, 2000);
     </script>
 </html>

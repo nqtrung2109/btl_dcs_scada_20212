@@ -191,6 +191,15 @@ con.connect(function (err) {
         console.log("Table created")
     });
 })
+con.connect(function (err) {
+    if (err) throw err
+    console.log("mysql connected")
+    var login = "CREATE TABLE IF NOT EXISTS login(ID int(10) not null primary key auto_increment,Username varchar(50) not null,Pass varchar(50) not null)"
+    con.query(login, function (err) {
+        if (err) throw err
+        console.log("Table created")
+    });
+})
 // ---------------------Các mảng chứa dữ liệu tạm thời---------------------------
 var windSpeed                      // tốc độ gió tb site
 var windPower                      // tổng công suất gió site
@@ -242,6 +251,8 @@ var windSpeed12
 var windPower12
 var windDirection12
 var windStatus12
+var tendangnhap
+var matkhau
 // ---------------------lấy giá trị từ CSDL ra, gửi lên trong giao diện-----------------------------
 var sql_site = "SELECT * FROM site ORDER BY ID DESC limit 1"  //Chọn giá trị theo cột, lấy giá trị mới nhất
 var sql_turbine1 = "SELECT * FROM turbine1 ORDER BY ID DESC limit 1"
@@ -256,6 +267,7 @@ var sql_turbine9 = "SELECT * FROM turbine9 ORDER BY ID DESC limit 1"
 var sql_turbine10 = "SELECT * FROM turbine10 ORDER BY ID DESC limit 1"
 var sql_turbine11 = "SELECT * FROM turbine11 ORDER BY ID DESC limit 1"
 var sql_turbine12 = "SELECT * FROM turbine12 ORDER BY ID DESC limit 1"
+var sql_login = "SELECT * FROM login "
 function loaddata(){
         con.query(sql_site, function (err, result) {     // chọn dữ liệu từ biến var lấy giá trị trong CSDL 
             if (err) throw err
@@ -308,8 +320,8 @@ function loaddata(){
             console.log("Data selected");
             result.forEach(function (value4) {
                 console.log(value4)
-                windSpeed4 = value4.TocDoGio + Math.floor(Math.random()*2); 
-                windPower4 = value4.CongSuat + Math.floor(Math.random()*100); 
+                windSpeed4 = value4.TocDoGio //+ Math.floor(Math.random()*2); 
+                windPower4 = value4.CongSuat //+ Math.floor(Math.random()*100); 
                 windDirection4 = value4.HuongGio
                 windStatus4 = value4.TrangThai
                 console.log("tb4: " + windSpeed4 + " / " + windPower4 + " / " + windDirection4 + " / " + windStatus4);
@@ -320,8 +332,8 @@ function loaddata(){
             console.log("Data selected");
             result.forEach(function (value5) {
                 console.log(value5)
-                windSpeed5 = value5.TocDoGio + Math.floor(Math.random()*2); 
-                windPower5 = value5.CongSuat + Math.floor(Math.random()*100); 
+                windSpeed5 = value5.TocDoGio //+ Math.floor(Math.random()*2); 
+                windPower5 = value5.CongSuat //+ Math.floor(Math.random()*100); 
                 windDirection5 = value5.HuongGio
                 windStatus5 = value5.TrangThai
                 console.log("tb5: " + windSpeed5 + " / " + windPower5 + " / " + windDirection5 + " / " + windStatus5);
@@ -368,8 +380,8 @@ function loaddata(){
             console.log("Data selected");
             result.forEach(function (value9) {
                 console.log(value9)
-                windSpeed9 = value9.TocDoGio + Math.floor(Math.random()*2); 
-                windPower9 = value9.CongSuat + Math.floor(Math.random()*100); 
+                windSpeed9 = value9.TocDoGio //+ Math.floor(Math.random()*2); 
+                windPower9 = value9.CongSuat //+ Math.floor(Math.random()*100); 
                 windDirection9 = value9.HuongGio
                 windStatus9 = value9.TrangThai
                 console.log("tb9: " + windSpeed9 + " / " + windPower9 + " / " + windDirection9 + " / " + windStatus9);
@@ -411,6 +423,16 @@ function loaddata(){
                 console.log("tb12: " + windSpeed12 + " / " + windPower12 + " / " + windDirection12 + " / " + windStatus12);
             })
         })
+        con.query(sql_login, function (err, result) {
+            if (err) throw err
+            console.log("Data selected");
+            result.forEach(function (value13) {
+                console.log(value13)
+                tendangnhap = value13.Username
+                matkhau = value13.Pass
+                console.log("ten: " + tendangnhap + " / mk:  " + matkhau);
+            })
+        })
         windPower = windPower1+windPower2+windPower3+windPower6+windPower7+windPower8+windPower10+windPower11+windPower12;  // tổng công suất
         windSpeed = (windSpeed1+windSpeed2+windSpeed3+windSpeed6+windSpeed7+windSpeed8+windSpeed10+windSpeed11+windSpeed12)/9;
     }
@@ -432,11 +454,9 @@ function loaddata(){
             io.emit('server-update-barchar',{windPower1,windPower2,windPower3,windPower4,windPower5,windPower6,windPower7,windPower8,windPower9,windPower10,windPower11,windPower12})
             io.emit('server-update-data', { windSpeed, windPower})      //Truyền dữ liệu nội bộ server
             io.emit('server-update-line', {windSpeed, windPower})
+            io.emit('server-update-login',{tendangnhap, matkhau })
             await delay(2000);
         };
     }
-    sendalldata()
-
-
+sendalldata()
  
-  

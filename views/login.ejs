@@ -62,6 +62,7 @@
         .form-text label{
             font-weight: 700;
         }
+
         </style>  
     </head>
     <body>
@@ -71,14 +72,29 @@
                 <h1> Welcome Group 9</h1>
                 <div class="form-text">
                     <label for = "uname">USER NAME</label>
-                    <input type="text" placeholder="Enter Username" name = "hoanganhubqn" required>
+                    <input type="text" placeholder="Enter Username" name="u" id="un" >
+                    <!-- name = "hoanganhubqn" required -->
                 </div>
                 <div class="form-text">
                     <label for = "psw">PASSWORD</label>
-                    <input type="password" placeholder="Password" name = "a" required>
+                    <input type="password" placeholder="Password"  name="p" id="pw" >
+                    <!-- name = "a" required -->
                 </div>
-                <a  href ="/windpower"><button>LOGIN</button></a>
+                <!-- <a  href ="/windpower"></a> -->
+                <button onclick= check()>LOGIN</button>
              </div>
         </div>
     </body>
+
+<script>
+    var dn,mk
+    socket.on("server-update-login", function (datalogin) {
+        dn= datalogin.tendangnhap;
+        mk= datalogin.matkhau;
+    });
+    function check(){
+        // if ($("un").val() !== dn && $("pw").val() !== mk){
+            alert("aaa");
+};
+</script>
 </html>

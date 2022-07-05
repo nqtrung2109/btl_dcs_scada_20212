@@ -56,7 +56,7 @@
         <div class="Home">
             <div > <a href="/windpower"><button class="Button-Home button-color">Home</button></a></div>
         </div>
-        <canvas id="tb1Chart" width= 250vw height=90%></canvas>
+        <canvas id="tb2Chart" width= 250vw height=90%></canvas>
        </div>
 
       
@@ -70,7 +70,7 @@
 <script>
      let dataPower = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
         let dataWind = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
-        var cxt = document.getElementById("tb1Chart").getContext("2d");
+        var cxt = document.getElementById("tb2Chart").getContext("2d");
         var tb1Chart = new Chart(cxt, {
             type: "line",
             data: {
