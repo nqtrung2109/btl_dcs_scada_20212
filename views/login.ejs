@@ -4,7 +4,9 @@
         <title>Login</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">                 
-         
+        <script src="jquery.js"></script>
+        <script src="socket.io/socket.io.js"> </script>
+        <script src="xuly.js"></script>
         <style type="text/css"> 
         :root{
             --bg1 :#51c1b6;
@@ -66,35 +68,26 @@
         </style>  
     </head>
     <body>
-        
+        <!-- <script type="text/javascript" src="index.js"></script> -->
         <div class="container">
              <div class="form-login"> 
                 <h1> Welcome Group 9</h1>
                 <div class="form-text">
                     <label for = "uname">USER NAME</label>
-                    <input type="text" placeholder="Enter Username" name="u" id="un" >
+                    <input type="text" placeholder="Enter Username" id="usernameLogin" >
                     <!-- name = "hoanganhubqn" required -->
                 </div>
                 <div class="form-text">
                     <label for = "psw">PASSWORD</label>
-                    <input type="password" placeholder="Password"  name="p" id="pw" >
+                    <input type="password" placeholder="Password" id="passwordLogin" >
                     <!-- name = "a" required -->
                 </div>
-                <!-- <a  href ="/windpower"></a> -->
-                <button onclick= check()>LOGIN</button>
+                <div class="button">
+                    <input type="submit" id = "loginButton" value="Login">
+                    <!-- <a href ="/windpower"><button>LOGIN</button></a> -->
+                </div>
              </div>
         </div>
+        <!-- <script  src="login.js"></script> -->
     </body>
-
-<script>
-    var dn,mk
-    socket.on("server-update-login", function (datalogin) {
-        dn= datalogin.tendangnhap;
-        mk= datalogin.matkhau;
-    });
-    function check(){
-        // if ($("un").val() !== dn && $("pw").val() !== mk){
-            alert("aaa");
-};
-</script>
 </html>
