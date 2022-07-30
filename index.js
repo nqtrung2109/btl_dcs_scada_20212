@@ -5,6 +5,8 @@ var express = require('express')  // Module xử lí chung
 var mysql = require('mysql2')     // Module cho phép sử dụng cơ sở dữ liệu mySQL 
 const { mainModule } = require('process')
 const delay = require('delay')    
+const moment = require('moment');
+
 
 var app = express()               // Khai báo biến app đại diện cho server
 var port = 8000                   // Port của localhost do mình chọn
@@ -17,7 +19,7 @@ var server = require("http").Server(app) // Module Triển khai giao thức HTTP
 var io = require("socket.io")(server);    // Module Socket.io dùng để truyền nhận dữ liệu trong nội bộ server
 
 
-var valid = false;
+var valid = 0;
 
 var arrayUsernames = [];
 var arrayPasswords = [];
@@ -37,6 +39,9 @@ app.get('/', function (req, res) {
 })
 app.get('/windpower', function (req, res) {
     res.render('windpower.ejs')    
+})
+app.get('/windpower_mem', function (req, res) {
+    res.render('windpower_mem.ejs')    
 })
 app.get('/alert', function (req, res) {
     res.render('alert.ejs')     
@@ -444,7 +449,9 @@ function loaddata(){
     async function sendalldata(){
         while(true){
             loaddata()
-            
+            var time=moment().utcOffset(7).format('hh:mm a').toString();
+            console.log("Time: " + time);
+            io.emit("server-send-time", time);
             io.emit('server-update-data1', { windSpeed1, windPower1, windDirection1,windStatus1 })   // io.emit gửi dữ liệu đến tất cả client
             io.emit('server-update-data2', { windSpeed2, windPower2, windDirection2,windStatus2 })
             io.emit('server-update-data3', { windSpeed3, windPower3, windDirection3,windStatus3 })
@@ -486,8 +493,13 @@ function isValidLogin(username, password) {
 
     for (var i=0; i <arrayUsernames.length; i++) {
         if ((username == arrayUsernames[i]) && (password == arrayPasswords[i])) {
-            valid = true;
+            valid = 2;
             break;  
+        } else if (username == 'admin' && password == 'admin') {
+            valid = 1;
+            break;
+        } else {
+            valid = 0;
         }
     }
     
@@ -509,12 +521,14 @@ io.on("connection", function(socket){
         isValidLogin(data.username, data.password);
         console.log("ban da nhap username " + data.username);
         console.log("ban da nhap password " + data.password);
-        if (valid) {
-            socket.emit("server-send-loginSuccess");
+        if (valid == 1) {
+            socket.emit("server-send-loginSuccess-admin");
             /* alert("Login Successful!"); */
-        } else {
+        } else if (valid == 0) {
             socket.emit("server-send-loginFail");
             /* alert("invalid credentials"); */
+        } else if (valid == 2) {
+            socket.emit("server-send-loginSuccess-mem");
         }
     });
 

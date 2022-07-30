@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">                 
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
   <link rel="icon" href="data:,">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
    <style type="text/css">  
    :root{
             --bg1 :#9b59b6;
@@ -92,6 +94,8 @@
    }
 
    .Alarms{
+      overflow-x: auto;
+      overflow-y: auto;
        height: 250px;
        background: #343a40;
        grid-area: pt;
@@ -129,11 +133,67 @@
 
        <div class="Alarms">  
           <h class="Header-2"> Site Alarms </h> 
+          <table class="table table-dark table-hover">
+            <thead>
+              <tr>
+                <th>Time</th>
+                <th>Source</th>
+                <th>Name</th>
+                <th>Level</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody id = "eventAlarms">
+              <!-- <tr>
+                <td>10:11:00</td>
+                <td>Component monitor</td>
+                <td>SNMP Disconnect</td>
+                <td>4-diagnostic</td>
+                <td>SNMP-close Sesstion</td>
+              </tr>
+              <tr>
+                <td>12:00:13</td>
+                <td>Component monitor</td>
+                <td>SNMP Disconnect</td>
+                <td>4-diagnostic</td>
+                <td>SNMP-close Sesstion</td>
+              </tr>
+              <tr>
+                <td>10:11:00</td>
+                <td>Component monitor</td>
+                <td>SNMP Disconnect</td>
+                <td>4-diagnostic</td>
+                <td>SNMP-close Sesstion</td>
+              </tr>
+              <tr>
+                <td>12:00:13</td>
+                <td>Component monitor</td>
+                <td>SNMP Disconnect</td>
+                <td>4-diagnostic</td>
+                <td>SNMP-close Sesstion</td>
+              </tr>
+              <tr>
+                <td>10:11:00</td>
+                <td>Component monitor</td>
+                <td>SNMP Disconnect</td>
+                <td>4-diagnostic</td>
+                <td>SNMP-close Sesstion</td>
+              </tr> -->
+              <tr>
+                <td>12:00:13</td>
+                <td>Component monitor</td>
+                <td>SNMP Disconnect</td>
+                <td>4-diagnostic</td>
+                <td>SNMP-close Sesstion</td>
+              </tr>
+            </tbody>
+          </table>
        </div>
     </div>
 <script src="jquery.js"></script>
 <script src="socket.io/socket.io.js"> </script>
 <script src="xuly.js"></script>
+<script src="alarms.js"></script>
 <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
 </body>
