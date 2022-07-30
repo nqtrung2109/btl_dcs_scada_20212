@@ -2,7 +2,7 @@ var socket = io("http://localhost:8000")   // đường link dẫn đến trang 
 
 socket.on("server-update-data1", (data1) => {
         if ( data1.windStatus1 == 'ON') {
-            document.getElementById('Turbin-1').style.color = '#00CC00';
+            document.getElementById('Turbin-1').style.color = 'green';
         } else {
             document.getElementById('Turbin-1').style.color = 'red';
         }

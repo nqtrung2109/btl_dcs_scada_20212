@@ -7,7 +7,6 @@ const { mainModule } = require('process')
 const delay = require('delay')    
 const moment = require('moment');
 
-
 var app = express()               // Khai báo biến app đại diện cho server
 var port = 8000                   // Port của localhost do mình chọn
 
@@ -18,17 +17,9 @@ app.set("views", "./views")       // Link thư mục chứa file giao diện
 var server = require("http").Server(app) // Module Triển khai giao thức HTTP để chạy được một trang web
 var io = require("socket.io")(server);    // Module Socket.io dùng để truyền nhận dữ liệu trong nội bộ server
 
-
 var valid = 0;
-
 var arrayUsernames = [];
 var arrayPasswords = [];
-
-/* exports.arrayUsernames;
-exports.arrayPasswords; */
-
-/* import { arrayUsernames } from "./public/login.js";
-import { arrayPasswords } from "./public/login.js"; */
 
 server.listen(port, function () {        // // server lắng nghe địa chỉ port để start
     console.log('Server listening on port ' + port)
@@ -86,7 +77,7 @@ app.get('/turbin12', function (req, res) {
 var con = mysql.createConnection({
     host: 'localhost',
     user: 'root',
-    password: '123456789',
+    password: 'trung2109',
     database: 'windpower'
 });
 //---------------------Tạo bảng trong cơ sở dữ liệu-------------------
@@ -292,10 +283,6 @@ function loaddata(){
             if (err) throw err
             console.log("Data selected");
             result.forEach(function (value) {    
-              //  console.log(value)                
-                // windSpeed = value.TocDoGio;     //Lấy ra các trường giá trong bảng, gán vào biến trung gian /  + Math.floor(Math.random()*2)
-                // windPower = value.CongSuat + Math.floor(Math.random()*100);  
-               // console.log(windSpeed + "/ " + windPower );
             })
         })
         con.query(sql_turbine1, function (err, result) {
@@ -312,146 +299,142 @@ function loaddata(){
         })
         con.query(sql_turbine2, function (err, result) {
             if (err) throw err
-            //console.log("Data selected");
+            console.log("Data selected");
             result.forEach(function (value2) {
-               // console.log(value2)
+            console.log(value2)
                 windSpeed2 = value2.TocDoGio + Math.floor(Math.random()*2); 
                 windPower2 = value2.CongSuat + Math.floor(Math.random()*100); 
                 windDirection2 = value2.HuongGio
                 windStatus2 = value2.TrangThai
-              //  console.log("tb2: " + windSpeed2 + " / " + windPower2 + " / " + windDirection2 + " / " + windStatus2);
+                console.log("tb2: " + windSpeed2 + " / " + windPower2 + " / " + windDirection2 + " / " + windStatus2);
             })
         })
         con.query(sql_turbine3, function (err, result) {
             if (err) throw err
-            //console.log("Data selected");
+            console.log("Data selected");
             result.forEach(function (value3) {
-              //  console.log(value3)
+            console.log(value3)
                 windSpeed3 = value3.TocDoGio + Math.floor(Math.random()*2); 
                 windPower3 = value3.CongSuat + Math.floor(Math.random()*100); 
                 windDirection3 = value3.HuongGio
                 windStatus3 = value3.TrangThai
-              //  console.log("tb3: " + windSpeed3 + " / " + windPower3 + " / " + windDirection3 + " /" + windStatus3);
+            console.log("tb3: " + windSpeed3 + " / " + windPower3 + " / " + windDirection3 + " /" + windStatus3);
             })
         })
         con.query(sql_turbine4, function (err, result) {
             if (err) throw err
-            //console.log("Data selected");
+            console.log("Data selected");
             result.forEach(function (value4) {
-              //  console.log(value4)
+            console.log(value4)
                 windSpeed4 = value4.TocDoGio //+ Math.floor(Math.random()*2); 
                 windPower4 = value4.CongSuat //+ Math.floor(Math.random()*100); 
                 windDirection4 = value4.HuongGio
                 windStatus4 = value4.TrangThai
-              //  console.log("tb4: " + windSpeed4 + " / " + windPower4 + " / " + windDirection4 + " / " + windStatus4);
+            console.log("tb4: " + windSpeed4 + " / " + windPower4 + " / " + windDirection4 + " / " + windStatus4);
             })
         })
         con.query(sql_turbine5, function (err, result) {
             if (err) throw err
-            //console.log("Data selected");
+            console.log("Data selected");
             result.forEach(function (value5) {
-              //  console.log(value5)
+            console.log(value5)
                 windSpeed5 = value5.TocDoGio //+ Math.floor(Math.random()*2); 
                 windPower5 = value5.CongSuat //+ Math.floor(Math.random()*100); 
                 windDirection5 = value5.HuongGio
                 windStatus5 = value5.TrangThai
-               // console.log("tb5: " + windSpeed5 + " / " + windPower5 + " / " + windDirection5 + " / " + windStatus5);
+                console.log("tb5: " + windSpeed5 + " / " + windPower5 + " / " + windDirection5 + " / " + windStatus5);
             })
         })
         con.query(sql_turbine6, function (err, result) {
             if (err) throw err
-            //console.log("Data selected");
+            console.log("Data selected");
             result.forEach(function (value6) {
-               // console.log(value6)
+                console.log(value6)
                 windSpeed6 = value6.TocDoGio + Math.floor(Math.random()*2); 
                 windPower6 = value6.CongSuat + Math.floor(Math.random()*100); 
                 windDirection6 = value6.HuongGio
                 windStatus6 = value6.TrangThai
-              //  console.log("tb6: " + windSpeed6 + " / " + windPower6 + " / " + windDirection6 + " / " + windStatus6);
+                console.log("tb6: " + windSpeed6 + " / " + windPower6 + " / " + windDirection6 + " / " + windStatus6);
             })
         })
         con.query(sql_turbine7, function (err, result) {
             if (err) throw err
-            //console.log("Data selected");
+            console.log("Data selected");
             result.forEach(function (value7) {
-               // console.log(value7)
+            console.log(value7)
                 windSpeed7 = value7.TocDoGio + Math.floor(Math.random()*2); 
                 windPower7 = value7.CongSuat + Math.floor(Math.random()*100); 
                 windDirection7 = value7.HuongGio
                 windStatus7 = value7.TrangThai
-               // console.log("tb7: " + windSpeed7 + " / " + windPower7 + " / " + windDirection7 + " / " + windStatus7);
+                console.log("tb7: " + windSpeed7 + " / " + windPower7 + " / " + windDirection7 + " / " + windStatus7);
             })
         })
         con.query(sql_turbine8, function (err, result) {
             if (err) throw err
-            //console.log("Data selected");
+            console.log("Data selected");
             result.forEach(function (value8) {
-              //  console.log(value8)
+            console.log(value8)
                 windSpeed8 = value8.TocDoGio + Math.floor(Math.random()*2); 
                 windPower8 = value8.CongSuat + Math.floor(Math.random()*100); 
                 windDirection8 = value8.HuongGio
                 windStatus8 = value8.TrangThai
-               // console.log("tb8: " + windSpeed8 + " / " + windPower8 + " / " + windDirection8 + " / " + windStatus8);
+                console.log("tb8: " + windSpeed8 + " / " + windPower8 + " / " + windDirection8 + " / " + windStatus8);
             })
         })
         con.query(sql_turbine9, function (err, result) {
             if (err) throw err
-            //console.log("Data selected");
+            console.log("Data selected");
             result.forEach(function (value9) {
-               // console.log(value9)
+            console.log(value9)
                 windSpeed9 = value9.TocDoGio //+ Math.floor(Math.random()*2); 
                 windPower9 = value9.CongSuat //+ Math.floor(Math.random()*100); 
                 windDirection9 = value9.HuongGio
                 windStatus9 = value9.TrangThai
-               // console.log("tb9: " + windSpeed9 + " / " + windPower9 + " / " + windDirection9 + " / " + windStatus9);
+                console.log("tb9: " + windSpeed9 + " / " + windPower9 + " / " + windDirection9 + " / " + windStatus9);
             })
         })
         con.query(sql_turbine10, function (err, result) {
             if (err) throw err
-            //console.log("Data selected");
+            console.log("Data selected");
             result.forEach(function (value10) {
-               // console.log(value10)
+            console.log(value10)
                 windSpeed10 = value10.TocDoGio + Math.floor(Math.random()*2); 
                 windPower10 = value10.CongSuat + Math.floor(Math.random()*100); 
                 windDirection10 = value10.HuongGio
                 windStatus10 = value10.TrangThai
-               // console.log("tb10: " + windSpeed10 + " / " + windPower10 + " / " + windDirection10 + " / " + windStatus10);
+                console.log("tb10: " + windSpeed10 + " / " + windPower10 + " / " + windDirection10 + " / " + windStatus10);
             })
         })
         con.query(sql_turbine11, function (err, result) {
             if (err) throw err
-            //console.log("Data selected");
+            console.log("Data selected");
             result.forEach(function (value11) {
-               // console.log(value11)
+            console.log(value11)
                 windSpeed11 = value11.TocDoGio + Math.floor(Math.random()*2); 
                 windPower11 = value11.CongSuat + Math.floor(Math.random()*100); 
                 windDirection11 = value11.HuongGio
                 windStatus11 = value11.TrangThai
-               // console.log("tb11: " + windSpeed11 + " / " + windPower11 + " / " + windDirection11 + " / " + windStatus11);
+                console.log("tb11: " + windSpeed11 + " / " + windPower11 + " / " + windDirection11 + " / " + windStatus11);
             })
         })
         con.query(sql_turbine12, function (err, result) {
             if (err) throw err
-            //console.log("Data selected");
+            console.log("Data selected");
             result.forEach(function (value12) {
-                //console.log(value12)
+                console.log(value12)
                 windSpeed12 = value12.TocDoGio + Math.floor(Math.random()*2); 
                 windPower12 = value12.CongSuat + Math.floor(Math.random()*100); 
                 windDirection12 = value12.HuongGio
                 windStatus12 = value12.TrangThai
-                //console.log("tb12: " + windSpeed12 + " / " + windPower12 + " / " + windDirection12 + " / " + windStatus12);
+                console.log("tb12: " + windSpeed12 + " / " + windPower12 + " / " + windDirection12 + " / " + windStatus12);
             })
         })
-        
         windPower = windPower1+windPower2+windPower3+windPower6+windPower7+windPower8+windPower10+windPower11+windPower12;  // tổng công suất
         windSpeed = (windSpeed1+windSpeed2+windSpeed3+windSpeed6+windSpeed7+windSpeed8+windSpeed10+windSpeed11+windSpeed12)/9;
     }
     async function sendalldata(){
         while(true){
             loaddata()
-            var time=moment().utcOffset(7).format('hh:mm a').toString();
-            console.log("Time: " + time);
-            io.emit("server-send-time", time);
             io.emit('server-update-data1', { windSpeed1, windPower1, windDirection1,windStatus1 })   // io.emit gửi dữ liệu đến tất cả client
             io.emit('server-update-data2', { windSpeed2, windPower2, windDirection2,windStatus2 })
             io.emit('server-update-data3', { windSpeed3, windPower3, windDirection3,windStatus3 })
@@ -476,7 +459,7 @@ sendalldata()
 con.query(sql_login, function (err, result) {
     if (err) throw err
     console.log("Data selected");
-    //console.log(result[0].Username);
+    console.log(result[0].Username);
     result.forEach(function (value13) {
         console.log(value13)
         tendangnhap = value13.Username
@@ -491,29 +474,18 @@ con.query(sql_login, function (err, result) {
 
 function isValidLogin(username, password) {
 
-    for (var i=0; i <arrayUsernames.length; i++) {
+    for (var i=1; i <arrayUsernames.length; i++) {
         if ((username == arrayUsernames[i]) && (password == arrayPasswords[i])) {
             valid = 2;
             break;  
-        } else if (username == 'admin' && password == 'admin') {
+        } else if (username == arrayUsernames[0] && password == arrayPasswords[0]) {
             valid = 1;
             break;
         } else {
             valid = 0;
         }
     }
-    
 }
-
-
-/*  document.getElementById("loginButton").addEventListener("click", ( )=>{
-    console.log("ham querySelector");
-
-    var username = document.getElementById("usernameLogin").value;
-    var password = document.getElementById("passwordLogin").value;
-    isValidLogin(username, password);
-});
- */
 
 io.on("connection", function(socket){
     console.log("soket da ket noi")
@@ -531,7 +503,23 @@ io.on("connection", function(socket){
             socket.emit("server-send-loginSuccess-mem");
         }
     });
-
 });
 
- 
+async function sendAlarms(){
+    while(true){
+        var time=moment().utcOffset(7).format('DD/MM/YYYY hh:mm:ss a').toString();
+        //console.log("Time: " + time1);
+        io.emit("server-send-time", time);
+        await delay(10000);
+    };
+}
+sendAlarms()
+// async function sendAlarms2(){
+//     while(true){
+//         var time2=moment().utcOffset(7).format('DD/MM/YYYY hh:mm:ss a').toString();
+//         //console.log("Time: " + time2);
+//         io.emit("server-send-time2", time2);
+//         await delay(2000);
+//     };
+// }
+// sendAlarms2()

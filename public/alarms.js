@@ -1,41 +1,54 @@
 
 var socket = io("http://localhost:8000")   // đường link dẫn đến trang web
-//init_reload();
-//function init_reload(){
-    //setInterval( function() {
-           // window.location.reload();
-     //},5000);
-//}
+
 var alarmsWindPower = [];
 var alarmsWindSpeed = [];
 var time;
+//var time2;
+var count=0;
 
-
-function checkAlarms(alarmsWindPower, alarmsWindSpeed){
+function checkSystem(){
     for (var i=1; i<13; i++) {
-        console.log("thoi gian nhan duoc:" + time);
-        if (alarmsWindPower[i] > 620) {
+        // console.log("thoi gian nhan duoc:" + time);
+        if (alarmsWindPower[i] == 0) {
             //alert(time);
-            var txt = "";
-            txt += "<tr><td>"+time+"</td>";
-            txt += "<td>Component monitor</td>";
-            txt += "<td>SNMP Disconnect</td>";
-            txt += "<td>4-diagnostic</td>";
-            txt += "<td>Turbine " +i+ " power is too high</td></tr>";
-            $("#eventAlarms").append(txt);
+            count = count + 1;
         }
     }
+    var txt = "";
+        txt += "<tr><td>"+ time +"</td>";
+        txt += "<td> SM_InSys_SystemOK </td>";
+        txt += "<td> System OK </td>";
+        txt += "<td> Information </td>";
+        $("#eventAlarms").append(txt); 
+    txt = "";
+        txt += "<tr><td>"+ time +"</td>";
+        txt += "<td> SM_CtrlSegGrpTurbIncompl_b1 </td>";
+        txt += "<td> "+ count +" of configured turbines incomplete</td>";
+        txt += "<td> Warning </td>";
+        $("#eventAlarms").append(txt); 
+    count = 0; 
+    if ( alarmsWindSpeed[0] > 5.3){
+        var txt = "";
+        txt += "<tr><td>"+ time +"</td>";
+        txt += "<td> SM_InWTG_HighWindSpeed </td>";
+        txt += "<td> High Wind Speed Alarm </td>";
+        txt += "<td> Information </td>";
+        $("#eventAlarms").append(txt); 
+    }
 }
-
 socket.on("server-send-time", (dattime) => {
     time = dattime;
-    
+    checkSystem();
 })
 
+// socket.on("server-send-time2", (dattime2) => {
+//     time2 = dattime2;
+//     checkSystem();
+// })
 socket.on("server-update-data", (data) => {             //Nhận dữ liệu 
     alarmsWindPower[0] = data.windPower;
     alarmsWindSpeed[0] = data.windSpeed;
-    checkAlarms(alarmsWindPower, alarmsWindSpeed);
 })
 socket.on("server-update-data1", (data1) => {
     alarmsWindPower[1] = data1.windPower1;
