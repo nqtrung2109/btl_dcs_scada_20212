@@ -23,7 +23,7 @@
         }
    .Background{
        display: grid;
-       background: #212529;
+       background: #8b8f92;
        grid-template-columns: 20% 80% ;
        grid-template-areas: 
          "h h"
@@ -36,27 +36,30 @@
    .Header{
        height: 70px;   
        grid-area: h;
-       background: #343a40;
+       background: #8b8f92;
    }
    .Header-1{
        color: white; 
-       text-align: left;  
-       font-size: 1.5rem; 
+       text-align: center;  
+       font-size: 1.8rem; 
+       padding: 250px;
    }
    .Header-2{
-       color: white; 
-       background-color: gray;
-       text-align: left;  
-       font-size: 1.2rem; 
-   }
-   .Header-3{
-       color: white; 
+       color: black; 
        text-align: left;  
        font-size: 1.1rem; 
+       padding: 2px;
+       font-weight: bold;
+   }
+   .Header-3{
+       color: black; 
+       text-align: left;  
+       font-size: 1rem; 
+       padding: 3px;
    }
    .Home{
        height: 20px;
-       background: #343a40;
+       background: #8b8f92;
        grid-area: hm;
        display: grid;
        grid-template-columns: 4% 96%;
@@ -68,7 +71,8 @@
    .Button-Home{
         border-radius: 12px;
         color: rgb(51, 44, 44);
-        padding: 4px 16px;
+        height: 25px;
+        padding: 0px 16px;
         transition-duration: 0.4s;
         display: inline-block;
         cursor: pointer;
@@ -89,7 +93,7 @@
 
    .Performance-Indicator{
        height: 250px;
-       background: #343a40;
+       background: white;
        grid-area: p;
    }
 
@@ -97,15 +101,20 @@
       overflow-x: auto;
       overflow-y: auto;
        height: 250px;
-       background: #343a40;
+       background: white;
        grid-area: pt;
    }
    .Header-4{
-        color: rgb(0, 110, 255); 
+      color: black; 
       text-align: left;  
-      font-size: 1.1rem; 
+      font-size: 1rem; 
   }
-
+    #textpower{
+        font-weight: 500;
+    }
+    #textwind{
+        font-weight: 500;
+    }
   </style>
 </head>
 <body>
@@ -126,14 +135,14 @@
        </div>
 
        <div class="Performance-Indicator">
-          <h class="Header-2"> Performance-Indicator </h>
-          <p class="Header-3">Power:<span class="Header-4"><span id="P">%P1%</span>W</span></p>
-          <p class="Header-3">Wind Speed:<span class="Header-4"><span id="WS">%WS%</span>m/s</span></p>
+          <h class="Header-2" > Performance-Indicator </h>
+          <p class="Header-3"> <span id="textpower"><br> Power:</span> <span class="Header-4"><span id="P">%P1%</span>W</span></p>
+          <p class="Header-3"> <span id="textwind"> Wind Speed: </span><span class="Header-4"><span id="WS">%WS%</span>m/s</span></p>
        </div>
 
        <div class="Alarms">  
           <h class="Header-2"> Site Alarms </h> 
-          <table class="table table-dark table-hover">
+          <table class="table table-hover">
             <thead>
               <tr>
                 <th>Time</th>
