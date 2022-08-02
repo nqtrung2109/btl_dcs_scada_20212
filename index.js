@@ -1,6 +1,3 @@
-
-const { randomBytes } = require('crypto') // biến tạo giá trị ngẫu nhiên trong phạm vi cụ thể ở dạng byte, cần chuyển sang hex or dec
-                                          // cryto là mã hóa và giải mã chuỗi
 var express = require('express')  // Module xử lí chung
 var mysql = require('mysql2')     // Module cho phép sử dụng cơ sở dữ liệu mySQL 
 const { mainModule } = require('process')
