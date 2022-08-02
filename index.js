@@ -514,12 +514,3 @@ async function sendAlarms(){
     };
 }
 sendAlarms()
-// async function sendAlarms2(){
-//     while(true){
-//         var time2=moment().utcOffset(7).format('DD/MM/YYYY hh:mm:ss a').toString();
-//         //console.log("Time: " + time2);
-//         io.emit("server-send-time2", time2);
-//         await delay(2000);
-//     };
-// }
-// sendAlarms2()
